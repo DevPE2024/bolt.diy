@@ -3,10 +3,13 @@ FROM ${BASE} AS base
 
 WORKDIR /app
 
+# Install pnpm globally
+RUN npm install -g pnpm@9.12.3
+
 # Install dependencies (this step is cached as long as the dependencies don't change)
 COPY package.json pnpm-lock.yaml ./
 
-RUN corepack enable pnpm && pnpm install
+RUN pnpm install
 
 # Copy the rest of your app's source code
 COPY . .
